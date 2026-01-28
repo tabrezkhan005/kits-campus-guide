@@ -22,6 +22,23 @@ function escapeHtml(text: string): string {
 
 export async function sendContactEmail(data: EmailData) {
   try {
+    // Validate input data
+    if (!data.name || !data.email || !data.message) {
+      return {
+        success: false,
+        error: 'Please fill in all required fields (name, email, and message).'
+      }
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(data.email)) {
+      return {
+        success: false,
+        error: 'Please provide a valid email address.'
+      }
+    }
+
     // Validate environment variables
     const smtpHost = process.env.SMTP_HOST
     const smtpPort = process.env.SMTP_PORT
@@ -29,19 +46,50 @@ export async function sendContactEmail(data: EmailData) {
     const smtpPass = process.env.SMTP_PASS
 
     if (!smtpHost || !smtpPort || !smtpUser || !smtpPass) {
-      throw new Error('SMTP configuration is missing. Please check your environment variables.')
+      const missing = []
+      if (!smtpHost) missing.push('SMTP_HOST')
+      if (!smtpPort) missing.push('SMTP_PORT')
+      if (!smtpUser) missing.push('SMTP_USER')
+      if (!smtpPass) missing.push('SMTP_PASS')
+      
+      console.error('Missing SMTP environment variables:', missing.join(', '))
+      throw new Error(`SMTP configuration is missing: ${missing.join(', ')}. Please check your .env file.`)
     }
 
-    // Create transporter
+    // Validate port is a valid number
+    const port = parseInt(smtpPort, 10)
+    if (isNaN(port) || port <= 0 || port > 65535) {
+      throw new Error(`Invalid SMTP_PORT: ${smtpPort}. Must be a number between 1 and 65535.`)
+    }
+
+    // Create transporter with connection timeout
+    // For Gmail SMTP with port 587, we need to use STARTTLS
     const transporter = nodemailer.createTransport({
       host: smtpHost,
-      port: parseInt(smtpPort, 10),
-      secure: parseInt(smtpPort, 10) === 465, // true for 465, false for other ports
+      port: port,
+      secure: port === 465, // true for 465, false for other ports (587 uses STARTTLS)
       auth: {
         user: smtpUser,
         pass: smtpPass,
       },
+      tls: {
+        // Do not fail on invalid certificates
+        rejectUnauthorized: false,
+      },
+      connectionTimeout: 10000, // 10 seconds
+      greetingTimeout: 10000, // 10 seconds
+      socketTimeout: 10000, // 10 seconds
     })
+
+    // Verify transporter configuration (optional - can skip if causing issues)
+    // This helps catch configuration errors early
+    try {
+      await transporter.verify()
+    } catch (verifyError) {
+      console.error('SMTP connection verification failed:', verifyError)
+      // Don't throw here - let the actual sendMail attempt handle the error
+      // Some SMTP servers don't support verify() but still work for sending
+    }
 
     // Escape user input to prevent XSS
     const safeName = escapeHtml(data.name)
@@ -169,10 +217,30 @@ Campus Guide Contact Form
 
     return { success: true, messageId: info.messageId }
   } catch (error) {
+    // Log detailed error for debugging
     console.error('Error sending email:', error)
+    
+    // Provide user-friendly error messages
+    let errorMessage = 'Failed to send email'
+    
+    if (error instanceof Error) {
+      // Check for specific error types
+      if (error.message.includes('SMTP configuration')) {
+        errorMessage = error.message
+      } else if (error.message.includes('connection') || error.message.includes('ECONNREFUSED')) {
+        errorMessage = 'Unable to connect to email server. Please check your internet connection and try again.'
+      } else if (error.message.includes('authentication') || error.message.includes('Invalid login')) {
+        errorMessage = 'Email authentication failed. Please check your SMTP credentials in the .env file.'
+      } else if (error.message.includes('timeout')) {
+        errorMessage = 'Email server connection timed out. Please try again later.'
+      } else {
+        errorMessage = error.message
+      }
+    }
+    
     return { 
       success: false, 
-      error: error instanceof Error ? error.message : 'Failed to send email' 
+      error: errorMessage
     }
   }
 }
