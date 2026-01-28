@@ -11,7 +11,7 @@ const searchCategories = [
     icon: Briefcase,
     title: 'Placement Cell',
     description: 'Training & placement offices',
-    href: '#placement',
+    href: '/placement',
   },
   {
     id: 'washrooms',

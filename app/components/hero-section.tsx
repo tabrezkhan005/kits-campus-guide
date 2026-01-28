@@ -101,7 +101,7 @@ export function HeroSection() {
             {/* Quick Search Tags */}
             <div className="mt-4 sm:mt-6 flex flex-wrap justify-center gap-1.5 sm:gap-2">
               {[
-                { name: 'Placement', href: '/management' },
+                { name: 'Placement', href: '/placement' },
                 { name: 'Washrooms', href: '/washrooms' },
                 { name: 'Blocks', href: '/blocks' },
                 { name: 'Canteen', href: '/food-court' },

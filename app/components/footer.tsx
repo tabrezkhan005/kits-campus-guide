@@ -33,9 +33,9 @@ const footerLinks = {
   ],
   resources: [
     { name: 'Student Portal', href: '#' },
-    { name: 'Library', href: '#' },
+    { name: 'Library', href: '/library' },
     { name: 'Examinations', href: '#' },
-    { name: 'Placements', href: '#' },
+    { name: 'Placements', href: '/placement' },
     { name: 'Downloads', href: '#' },
   ],
 }

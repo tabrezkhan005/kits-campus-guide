@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { BlurFade } from '@/components/ui/blur-fade'
 import { motion } from 'framer-motion'
-import { ArrowUpRight, Building2, Users, BookOpen, Utensils, MapPin } from 'lucide-react'
+import { ArrowUpRight, Building2, Users, BookOpen, Utensils, MapPin, Briefcase } from 'lucide-react'
 
 interface QuickAccessCard {
   id: string
@@ -23,6 +23,14 @@ const quickAccessCards: QuickAccessCard[] = [
     icon: <Building2 className="w-5 h-5" />,
     image: '/explorecampus/academicblocks.png',
     href: '/blocks',
+  },
+  {
+    id: 'placement',
+    title: 'Placements',
+    description: 'Placement companies and interview locations',
+    icon: <Briefcase className="w-5 h-5" />,
+    image: '/explorecampus/management.png',
+    href: '/placement',
   },
   {
     id: 'management',
