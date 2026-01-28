@@ -98,7 +98,7 @@ export default function LibraryPage() {
               className="aspect-video relative rounded-2xl overflow-hidden border border-slate-200"
             >
               <Image
-                src="/library.webp"
+                src="/library-updated.webp"
                 alt="Central Library"
                 fill
                 className="object-cover"
