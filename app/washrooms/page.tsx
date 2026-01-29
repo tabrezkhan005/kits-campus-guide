@@ -13,13 +13,12 @@ const washroomData = {
     image: '/assets/images/bg.jpg',
     male: [
       { floor: 'Ground Floor', direction: 'Beside Room 018', roomNumber: '018' },
-      { floor: 'Ground Floor', direction: 'Beside Room 107', roomNumber: '107' },
-      { floor: 'Ground Floor', direction: 'Beside Room 119', roomNumber: '119' },
+      { floor: 'First Floor', direction: 'Beside Room 107', roomNumber: '107' },
+      { floor: 'First Floor', direction: 'Beside Room 119', roomNumber: '119' },
 
     ],
     female: [
-      { floor: 'Ground Floor', direction: 'Beside Room 128', roomNumber: '128' },
-
+      { floor: 'First Floor', direction: 'Beside Room 128', roomNumber: '128' },
     ],
   },
   block2: {

@@ -35,13 +35,6 @@ const topManagement = [
     description: 'Fostering academic discipline and student success.',
     image: '/assets/images/management/principalnew.jpg',
   },
-  {
-    role: 'TPO',
-    name: 'Ch. Chandra Sekhar Reddy',
-    slug: 'tpo',
-    description: 'Head of Training and Placements, bridging industry requirements with student skills.',
-    image: '/assets/images/management/tpo.jpg',
-  },
 ]
 
 // HODs Data
@@ -53,6 +46,7 @@ const hods = [
   { dept: 'ECE', name: 'Dr. N. Adi Narayana', room: 'Room KKR-220', role: 'Head of Department' },
   { dept: 'EEE', name: 'Dr. Y. Rajesh Babu', room: 'Room KKR-307', role: 'Head of Department' },
   { dept: 'S&H', name: 'Mr. M. Basaveswara Rao', room: 'Room KSR-201', role: 'Head of Department' },
+  { dept: 'TPO', name: 'Ch. Chandra Sekhar Reddy', room: 'Room KKR-127', role: 'Head of Department' },
 ]
 
 const containerVariants = {
