@@ -35,17 +35,24 @@ const topManagement = [
     description: 'Fostering academic discipline and student success.',
     image: '/assets/images/management/principalnew.jpg',
   },
+  {
+    role: 'TPO',
+    name: 'Ch. Chandra Sekhar Reddy',
+    slug: 'tpo',
+    description: 'Head of Training and Placements, bridging industry requirements with student skills.',
+    image: '/assets/images/management/tpo.jpg',
+  },
 ]
 
 // HODs Data
 const hods = [
-  { dept: 'CSM', name: 'Room KKR-319', role: 'Head of Department' },
-  { dept: 'ECE', name: 'Room KKR-220', role: 'Head of Department' },
-  { dept: 'EEE', name: 'Room KKR-307', role: 'Head of Department' },
-  { dept: 'IT', name: 'Room KKR-023', role: 'Head of Department' },
-  { dept: 'CSE', name: 'Room KKR-223', role: 'Head of Department' },
-  { dept: 'CSD', name: 'Room KKR-131', role: 'Head of Department' },
-  { dept: 'S&H', name: 'Room KSR-201', role: 'Head of Department' },
+  { dept: 'CSE', name: 'Prof. R. Ramesh', room: 'Room KKR-223', role: 'Head of Department' },
+  { dept: 'CSM', name: 'Dr. G. Murali', room: 'Room KKR-319', role: 'Head of Department' },
+  { dept: 'CSD', name: 'Dr. B. Bhanu Prakash', room: 'Room KKR-131', role: 'Head of Department' },
+  { dept: 'IT', name: 'Dr. M. Srinivasa Sesha Sai', room: 'Room KKR-023', role: 'Head of Department' },
+  { dept: 'ECE', name: 'Dr. N. Adi Narayana', room: 'Room KKR-220', role: 'Head of Department' },
+  { dept: 'EEE', name: 'Dr. Y. Rajesh Babu', room: 'Room KKR-307', role: 'Head of Department' },
+  { dept: 'S&H', name: 'Mr. M. Basaveswara Rao', room: 'Room KSR-201', role: 'Head of Department' },
 ]
 
 const containerVariants = {
@@ -137,7 +144,7 @@ export default function ManagementPage() {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 lg:gap-8"
           >
             {topManagement.map((person, index) => (
               <motion.div
@@ -236,12 +243,15 @@ export default function ManagementPage() {
                 </div>
 
                 {/* Content */}
-                <div className="space-y-1 mb-5">
+                <div className="space-y-2 mb-4">
                   <h3 className="text-lg font-medium text-slate-900">
                     {hod.name}
                   </h3>
                   <p className="text-sm text-slate-500">
                     {hod.role}
+                  </p>
+                  <p className="text-xs text-slate-400">
+                    {hod.room}
                   </p>
                 </div>
               </motion.div>
